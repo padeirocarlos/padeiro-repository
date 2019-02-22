@@ -1,0 +1,22 @@
+package padeiro.exemplo.angular.config;
+
+public enum EAuthorizedAndAuthenticationConfig {
+
+	SCOPE_READ("read"),CORS_ORIGINS("http://localhost:8000"), SCOPE_WRITE("write"), CLIENT_MOBILE_NAME("mobile"), CLIENT_MOBILE_PASSWORD("m0b1l30"),CLIENT_ANGULAR_NAME("angular"), CLIENT_ANGULAR_PASSWORD("@ngul@r0"),
+	SIGNING_KEY("angularpadeiro"), GRANT_TYPE("password"), GRANT_REFRESH_TOKEN("refresh_token");
+
+	// _CORS_ORIGINS("http://localhost:8080") TODO: Configurar para diferentes
+	// ambientes
+
+	private final String value;
+
+	public static final String _CORS_ORIGINS = "http://localhost:8000";
+
+	private EAuthorizedAndAuthenticationConfig(final String name) {
+		this.value = name;
+	}
+
+	public String getValue() {
+		return this.value;
+	}
+}

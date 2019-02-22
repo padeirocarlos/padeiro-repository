@@ -1,0 +1,5 @@
+package padeiro.exemplo.angular.token;
+
+public enum ETokenConfig {
+
+}

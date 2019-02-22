@@ -1,0 +1,6 @@
+1547854197423	Move compilation unit
+1547854625458	Encapsulate field 'code'
+1547855043046	Rename package 'padeiro.exemplo.angular.category'
+1547855721055	Rename type 'CategoryRepository'
+1547855944456	Rename field 'categoriaRepository'
+1547859308608	Rename resource 'database'

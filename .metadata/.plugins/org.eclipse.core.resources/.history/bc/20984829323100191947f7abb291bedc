@@ -1,0 +1,7 @@
+package padeiro.exemplo.angular.repository.user;
+
+public class UserRepository extends JpaRepository<UserEntity, Long> {
+
+	public Optional<UserEntity> findByEmail(String email);
+	
+}

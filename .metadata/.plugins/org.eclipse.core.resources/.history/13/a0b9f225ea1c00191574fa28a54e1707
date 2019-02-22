@@ -1,0 +1,44 @@
+package padeiro.exemplo.angular.events;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.ApplicationEvent;
+
+import padeiro.exemplo.angular.model.person.PersonEntity;
+
+public class CreatedResourceEvent extends ApplicationEvent {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8822231030452085989L;
+
+	private HttpServletResponse response;
+
+	private Long id;
+
+	private Boolean isCode = Boolean.FALSE;
+
+	public CreatedResourceEvent(Object source, HttpServletResponse response, Long id) {
+		super(source);
+
+		this.id = id;
+		this.response = response;
+
+		if (source instanceof PersonEntity) {
+			this.isCode = Boolean.TRUE;
+		}
+	}
+
+	public HttpServletResponse getResponse() {
+		return response;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Boolean getIsCodeOrid() {
+		return isCode;
+	}
+}

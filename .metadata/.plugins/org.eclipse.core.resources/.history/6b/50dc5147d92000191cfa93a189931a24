@@ -1,0 +1,5 @@
+package padeiro.exemplo.angular.config;
+
+public enum APIAuthorizedAndAuthenticationConfig {
+
+}

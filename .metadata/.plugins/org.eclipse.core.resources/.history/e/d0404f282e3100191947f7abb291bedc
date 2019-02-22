@@ -1,0 +1,12 @@
+package padeiro.exemplo.angular.model.user;
+
+@Entity
+@Table(name = "authorization")
+public class Authorization {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	private String descricao;
+}

@@ -1,0 +1,51 @@
+package padeiro.exemplo.angular.repository.operation;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
+
+import padeiro.exemplo.angular.frameworks.entity.IObjectState;
+import padeiro.exemplo.angular.model.operation.OperationEntity;
+import padeiro.exemplo.angular.model.operation.OperationEnum;
+
+public class OperationRepositoryImpl implements IOperationRepositoryQuery {
+
+	@PersistenceContext(unitName = "defaultPersistenceUnitName")
+	private EntityManager entityManager;
+
+	public List<OperationEntity> findOperationByDescriptionAndDate(final LocalDate created, final String description) throws EntityNotFoundException {
+
+		TypedQuery<OperationEntity> query = this.getEntityManager()
+				.createQuery(IOperationRepositoryQuery.findOperationByUser, OperationEntity.class);
+		query.setParameter("pdescription", "description");
+		query.setParameter("pactive", IObjectState.ACTIVED);
+		query.setParameter("pcreated", created, TemporalType.DATE);
+
+		return query.getResultList();
+	}
+
+	public List<OperationEntity> findOperationByDescriptionAndOperationType(final OperationEnum operationType, final String description)
+			throws EntityNotFoundException {
+		String JPQL = "select p from payment p where p.paymentStatus=:pOperationStatus and p.paymentDate=:pcreated and p.active=:pactive";
+		TypedQuery<OperationEntity> query = this.getEntityManager().createQuery(JPQL, OperationEntity.class);
+		query.setParameter("pactive", IObjectState.ACTIVED);
+		query.setParameter("pOperationStatus", operationType.OUTGOING);
+		return query.getResultList();
+
+	}
+
+	public EntityManager getEntityManager() {
+		return this.entityManager;
+	}
+
+	public void setEntityManager(final EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
+}

@@ -1,0 +1,79 @@
+package padeiro.exemplo.angular.service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import padeiro.exemplo.angular.model.operation.OperationEntity;
+import padeiro.exemplo.angular.model.operation.OperationEnum;
+import padeiro.exemplo.angular.repository.operation.OperationRepository;
+import padeiro.exemplo.angular.repository.operation.OperationRepositoryImpl;
+
+@Service
+public class OperationService {
+
+	@Inject
+	private OperationRepository operationRepository;
+
+	@Inject
+	private OperationRepositoryImpl operationRepositoryQuery;
+
+	public OperationEntity updateOperation(Long id, OperationEntity operation) {
+
+		OperationEntity operationToSave = operationRepository.findOne(id);
+
+		if (operationToSave == null) {
+			throw new EmptyResultDataAccessException(1);
+		}
+
+		BeanUtils.copyProperties(operation, operationToSave, "id");
+
+		return operationRepository.save(operationToSave);
+	}
+
+	public List<OperationEntity> findOperationByDescriptionAndDate(final LocalDate validatyDate,
+			final String description) {
+
+		return getOperationRepositoryQuery().findOperationByDescriptionAndDate(validatyDate, description);
+
+	}
+	
+	public Page<ProjectionOperation> findProjectionOperationByDescriptionAndDate(final LocalDate validatyDate,
+			final String description,Pageable pageable) {
+
+		return getOperationRepositoryQuery().findProjectionOperationByDescriptionAndDate(validatyDate, description,pageable);
+
+	}
+	
+	public Page<ProjectionOperation> findProjectionOperationByDescriptionAndOperationType(final String operationType,
+			final String description,Pageable pageable) {
+
+		return getOperationRepositoryQuery()
+				.findProjectionOperationByDescriptionAndOperationType(OperationEnum.valueOf(operationType), description,pageable);
+
+	}
+
+	public List<OperationEntity> findOperationByDescriptionAndOperationType(final String operationType,
+			final String description) {
+
+		return getOperationRepositoryQuery()
+				.findOperationByDescriptionAndOperationType(OperationEnum.valueOf(operationType), description);
+
+	}
+
+	public OperationRepositoryImpl getOperationRepositoryQuery() {
+		return operationRepositoryQuery;
+	}
+
+	public void setOperationRepositoryQuery(OperationRepositoryImpl operationRepositoryQuery) {
+		this.operationRepositoryQuery = operationRepositoryQuery;
+	}
+
+}

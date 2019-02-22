@@ -1,0 +1,17 @@
+package padeiro.exemplo.angular.config;
+
+public enum EAuthorizedAndAuthenticationConfig {
+
+	SCOPE_READ("read"), SCOPE_WRITE("write"), CLIENT_NAME("angular"), CLIENT_PASSWORD("@ngul@r0"),
+	SIGNING_KEY("angularpadeiro"), GRANT_TYPE("password"), GRANT_REFRESH_TOKEN("refresh_token");
+
+	private final String value;
+
+	private EAuthorizedAndAuthenticationConfig(final String name) {
+		this.value = name;
+	}
+
+	public String getValue() {
+		return this.value;
+	}
+}

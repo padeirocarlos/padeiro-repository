@@ -1,0 +1,2 @@
+padeiro.security.enable-https=true
+padeiro.httpOnly.enable-httpOnly=true

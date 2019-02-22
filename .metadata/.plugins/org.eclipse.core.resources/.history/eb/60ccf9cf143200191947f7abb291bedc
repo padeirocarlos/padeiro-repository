@@ -1,0 +1,7 @@
+package padeiro.exemplo.angular.resource.logout;
+/**
+ * @author cpadeiro
+ */
+public class RevokeTokenResource {
+
+}

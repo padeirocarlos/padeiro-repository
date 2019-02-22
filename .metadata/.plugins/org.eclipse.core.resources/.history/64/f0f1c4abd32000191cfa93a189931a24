@@ -1,0 +1,55 @@
+package padeiro.exemplo.angular.config;
+
+import javax.inject.Inject;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+@Configuration
+@EnableAuthorizationServer
+public class APIAuthorizedSecurityConfig extends AuthorizationServerConfigurerAdapter {
+
+	public final static String SCOPE_READ = "read";
+	public final static String SCOPE_WRITE = "write";
+	public final static String CLIENT_NAME = "angular";
+	public final static String CLIENT_PASSWORD = "@ngul@r0";
+	public final static String SIGNING_KEY = "angularpadeiro";
+	public final static String GRANT_TYPE = "password";
+	public final static String GRANT_REFRESH_TOKEN = "refresh_token";
+
+	@Inject
+	private AuthenticationManager authenticationManager;
+
+	@Override
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		clients.inMemory().withClient(CLIENT_NAME).secret(CLIENT_PASSWORD).scopes(SCOPE_READ, SCOPE_WRITE)
+				.authorizedGrantTypes(GRANT_TYPE, GRANT_REFRESH_TOKEN).accessTokenValiditySeconds(15)
+				.refreshTokenValiditySeconds(3600 * 24);
+	}
+
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		endpoints.tokenStore(tokenStore()).accessTokenConverter(accessTokenConverter())
+				.authenticationManager(authenticationManager);
+	}
+
+	@Bean
+	public JwtAccessTokenConverter accessTokenConverter() {
+		JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
+		accessTokenConverter.setSigningKey(SIGNING_KEY);
+		return accessTokenConverter;
+	}
+
+	@Bean
+	public TokenStore tokenStore() {
+		return new JwtTokenStore(accessTokenConverter());
+	}
+}

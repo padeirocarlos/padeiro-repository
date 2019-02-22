@@ -1,0 +1,42 @@
+package padeiro.exemplo.angular.config;
+
+import javax.inject.Inject;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+
+@Configuration
+@EnableAuthorizationServer
+public class APIAuthorizedSecurityConfig extends AuthorizationServerConfigurerAdapter {
+
+	public final static String SCOPE_READ = "read";
+	public final static String SCOPE_WRITE = "write";
+	public final static String CLIENT_NAME = "angular";
+	public final static String CLIENT_PASSWORD = "@ngul@r0";
+
+	@Inject
+	private AuthenticationManager authenticationManager;
+
+	@Override
+	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		clients.inMemory().withClient(CLIENT_NAME).secret(CLIENT_PASSWORD).scopes(SCOPE_READ, SCOPE_WRITE)
+				.authorizedGrantTypes("password").accessTokenValiditySeconds(1800);
+	}
+
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager);
+	}
+
+	@Bean
+	public TokenStore tokenStore() {
+		return new InMemoryTokenStore();
+	}
+}

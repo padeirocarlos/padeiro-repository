@@ -1,0 +1,5 @@
+package padeiro.exemplo.angular.model.operation;
+
+public class SummaryOperation {
+
+}

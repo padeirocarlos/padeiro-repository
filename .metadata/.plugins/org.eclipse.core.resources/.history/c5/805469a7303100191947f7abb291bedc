@@ -1,0 +1,9 @@
+package padeiro.exemplo.angular.model.security;
+
+public class PassWordGenerationUtils {
+
+	public static void main(String[] args) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		System.out.println(encoder.encode("admin"));
+	}
+}

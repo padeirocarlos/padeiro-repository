@@ -1,0 +1,42 @@
+package padeiro.exemplo.angular.model.security;
+
+import javax.inject.Inject;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import padeiro.exemplo.angular.model.user.UserEntity;
+
+@Service
+public class AppUserDetailsService {
+
+	@Inject
+	private UserEntityRepository UserEntityRepository;
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Optional<UserEntity> userEntityOptional = UserEntityRepository.findByEmail(email);
+		UserEntity userEntity = userEntityOptional
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
+		return new User(email, userEntity.getPassword(), getPermissoes(userEntity));
+	}
+
+	private Collection<? extends GrantedAuthority> getPermissoes(UserEntity userEntity) {
+		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+		userEntity.getAuthorizations()
+				.forEach(p -> authorities.add(new SimpleGrantedAuthority(p.getDescription().toUpperCase())));
+		return authorities;
+	}
+
+}

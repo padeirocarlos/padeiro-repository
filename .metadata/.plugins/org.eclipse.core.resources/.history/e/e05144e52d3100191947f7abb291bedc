@@ -1,0 +1,16 @@
+package padeiro.exemplo.angular.model.user;
+
+public class UserEntity {
+
+	@Id
+	private Long id;
+
+	private String name;
+	private String email;
+	private String password;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_authorization", joinColumns = @JoinColumn(name = "codigo_usuario"), inverseJoinColumns = @JoinColumn(name = "codigo_permissao"))
+	private List<Authorization> permissoes;
+
+}

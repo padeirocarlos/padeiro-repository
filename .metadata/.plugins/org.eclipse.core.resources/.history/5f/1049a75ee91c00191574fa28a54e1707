@@ -1,0 +1,21 @@
+package padeiro.exemplo.angular.events;
+
+import org.springframework.context.ApplicationListener;
+
+public class CreatedResourceListener implements ApplicationListener<CreatedResourceEvent> {
+
+	@Override
+	public void onApplicationEvent(CreatedResourceEvent event) {
+		HttpServletResponse response = event.getResponse();
+		Long codigo = event.getId();
+		
+		adicionarHeaderLocation(response, codigo);
+		
+	}
+
+	private void adicionarHeaderLocation(HttpServletResponse response, Long codigo) {
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
+				.buildAndExpand(codigo).toUri();
+		response.setHeader("Location", uri.toASCIIString());
+	}
+}

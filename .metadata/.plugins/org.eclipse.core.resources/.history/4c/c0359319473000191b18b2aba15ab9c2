@@ -1,0 +1,6 @@
+package padeiro.exemplo.angular.token;
+
+public enum ETokenConfig {
+
+	_OAUTH_TOKEN("/oauth/token"), _REFRESH_TOKEN("refresh_token"), _GRANT_TYPE("grant_type");
+}

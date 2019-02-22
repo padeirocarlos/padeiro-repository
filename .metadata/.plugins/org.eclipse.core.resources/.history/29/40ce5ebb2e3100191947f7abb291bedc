@@ -1,0 +1,27 @@
+package padeiro.exemplo.angular.model.user;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
+public class UserEntity {
+
+	@Id
+	private Long id;
+
+	private String name;
+	private String email;
+	private String password;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "user_authorization", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authorization_id"))
+	private List<Authorization> authorizations;
+
+}

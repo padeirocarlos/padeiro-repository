@@ -1,0 +1,100 @@
+package padeiro.exemplo.angular.repository.operation;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.springframework.stereotype.Service;
+
+import padeiro.exemplo.angular.model.operation.OperationEntity;
+import padeiro.exemplo.angular.model.operation.OperationEnum;
+import padeiro.exemplo.angular.utils.StringUtils;
+
+@Service
+public class OperationRepositoryImpl implements OperationRepositoryQuery {
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	public List<OperationEntity> findOperationByDescriptionAndDate(final LocalDate validatyDate,
+			final String description) {
+
+		TypedQuery<OperationEntity> query = this.getEntityManager()
+				.createQuery(OperationRepositoryQuery.findOperationByDescriptionAndDate, OperationEntity.class);
+		query.setParameter("pdescription", StringUtils.lowerCaseAndConact(description));
+		query.setParameter("pvalidatyDate", validatyDate);
+		// query.setParameter("pactive", IObjectActiveState.ACTIVED);
+
+		return query.getResultList();
+	}
+
+	public List<OperationEntity> findOperationByDescriptionAndOperationType(final OperationEnum operationType,
+			final String description) {
+		TypedQuery<OperationEntity> query = this.getEntityManager().createQuery(
+				OperationRepositoryQuery.findOperationByDescriptionAndOperationType, OperationEntity.class);
+		query.setParameter("pdescription", StringUtils.lowerCaseAndConact(description));
+		query.setParameter("poperationType", operationType.OUTGOING);
+		// query.setParameter("pactive", IObjectActiveState.ACTIVED);
+		return query.getResultList();
+
+	}
+
+	public List<OperationEntity> findOperationByDescriptionAndOperationType(final String operationType,
+			final String description) {
+		TypedQuery<OperationEntity> query = this.getEntityManager().createQuery(
+				OperationRepositoryQuery.findOperationByDescriptionAndOperationType, OperationEntity.class);
+		query.setParameter("pdescription", StringUtils.lowerCaseAndConact(description));
+		query.setParameter("poperationType", operationType);
+		// query.setParameter("pactive", IObjectActiveState.ACTIVED);
+		return query.getResultList();
+
+	}
+
+	@Override
+	public List<OperationEntity> findProjectionOperationByDescriptionAndDate(LocalDate validatyDate,
+			String description) {
+		
+		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<ResumoLancamento> criteria = builder.createQuery(ProjectionOperation.class);
+		Root<OperationEntity> root = criteria.from(OperationEntity.class);
+		
+		criteria.select(builder.construct(ResumoLancamento.class
+				, root.get(Lancamento_.codigo), root.get(Lancamento_.descricao)
+				, root.get(Lancamento_.dataVencimento), root.get(Lancamento_.dataPagamento)
+				, root.get(Lancamento_.valor), root.get(Lancamento_.tipo)
+				, root.get(Lancamento_.categoria).get(Categoria_.nome)
+				, root.get(Lancamento_.pessoa).get(Pessoa_.nome)));
+		
+		Predicate[] predicates = criarRestricoes(lancamentoFilter, builder, root);
+		criteria.where(predicates);
+		
+		TypedQuery<ResumoLancamento> query = manager.createQuery(criteria);
+		adicionarRestricoesDePaginacao(query, pageable);
+		
+		return new PageImpl<>(query.getResultList(), pageable, total(lancamentoFilter));
+		
+		return null;
+	}
+
+	@Override
+	public List<OperationEntity> findProjectionOperationByDescriptionAndOperationType(OperationEnum operationType,
+			String description) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public EntityManager getEntityManager() {
+		return this.entityManager;
+	}
+
+	public void setEntityManager(final EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
+}

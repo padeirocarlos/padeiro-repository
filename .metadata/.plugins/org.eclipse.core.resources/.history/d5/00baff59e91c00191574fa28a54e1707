@@ -1,0 +1,12 @@
+package padeiro.exemplo.angular.events;
+
+import org.springframework.context.ApplicationListener;
+
+public class CreatedResourceListener implements ApplicationListener<CreatedResourceEvent> {
+
+	@Override
+	public void onApplicationEvent(CreatedResourceEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+}

@@ -1,0 +1,8 @@
+package padeiro.exemplo.angular.repository.operation;
+
+public interface IOperationRepositoryQuery {
+
+	String findOperationByUser = "select p from payment p inner join fetch p.userProcesser up inner join fetch p.invoice i where p.paymentStatus=:pOperationStatus and p.creationDate>=:pcreated and p.active=:pactive";
+
+	String findOperationByOperationDate = "select p from payment p where p.paymentStatus=:pOperationStatus and p.paymentDate=:pcreated and p.active=:pactive";
+}

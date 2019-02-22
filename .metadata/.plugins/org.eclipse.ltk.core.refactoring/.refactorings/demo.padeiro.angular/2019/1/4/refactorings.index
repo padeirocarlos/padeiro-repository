@@ -1,0 +1,87 @@
+1547990227688	Rename resource 'V01__criar_e_registrar_categorias.sql'
+1547990590603	Rename resource 'V02__criar_e_registrar_categorias.sql'
+1547990617213	Copy file
+1547996853321	Rename type 'Erro'
+1547996873173	Rename local variable 'mensagemUsuario'
+1547996886444	Rename local variable 'mensagemDesenvolvedor'
+1547996900470	Rename field 'mensagemUsuario'
+1547996980981	Encapsulate field 'userMessage'
+1547996994149	Encapsulate field 'developerMessage'
+1547998155574	Rename field 'userMessage'
+1547998165389	Rename field 'developerMessage'
+1547998224314	Rename local variable 'userMessage'
+1547998236854	Rename local variable 'developerMessage'
+1547999959198	Rename method 'criarListaDeErros'
+1548000013454	Rename local variable 'erros'
+1548000087008	Rename local variable 'mensagemUsuario'
+1548000094531	Rename local variable 'mensagemDesenvolvedor'
+1548000182228	Rename type 'ErroContent'
+1548000275422	Rename resource 'Validation.properties'
+1548001862104	Rename type 'Category'
+1548002068874	Encapsulate field 'active'
+1548002081111	Encapsulate field 'name'
+1548002517875	Encapsulate field 'person'
+1548002522205	Encapsulate field 'operation'
+1548002526233	Encapsulate field 'category'
+1548003148803	Encapsulate field 'address'
+1548003911913	Encapsulate field 'value'
+1548004485039	Encapsulate field 'id'
+1548004741321	Copy file
+1548005514454	Move compilation unit
+1548005535472	Copy compilation unit
+1548005556057	Rename type 'ICategoryRepository'
+1548005564775	Rename type 'IPersoonRepository'
+1548005687789	Rename field 'categoryRepository'
+1548005827787	Rename local variable 'categoryEntity'
+1548006157898	Rename local variable 'code'
+1548006420111	Rename resource 'V01__create_and_intitializer_person_table.sql'
+1548006631273	Rename resource 'V04__create_and_intitializer_person_table.sql'
+1548006905121	Rename resource 'V05__create_and_intitializer_person_table.sql'
+1548007079754	Rename resource 'V04__create_and_intitializer_person_table.sql'
+1548007262193	Delete element
+1548011197525	Rename package 'padeiro.exemplo.angular.exception'
+1548012265001	Move compilation unit
+1548012454004	Rename method 'adicionarHeaderLocation'
+1548012607611	Encapsulate field 'isCodeOrid'
+1548012752840	Rename field 'isCodeOrid'
+1548013624154	Encapsulate field 'publisher'
+1548063667787	Encapsulate field 'publisher'
+1548063799587	Rename local variable 'personEntity'
+1548063962858	Encapsulate field 'publisher'
+1548064722593	Rename method 'createCategory'
+1548064733782	Rename method 'deleteCategory'
+1548066159498	Rename local variable 'personId'
+1548070194535	Rename local variable 'pessoa'
+1548070258140	Rename local variable 'pessoaSalva'
+1548070612034	Encapsulate field 'personService'
+1548070768024	Rename local variable 'personId'
+1548072646945	Rename method 'deletePerson'
+1548143595169	Copy compilation unit
+1548143879808	Copy compilation unit
+1548144164397	Copy compilation unit
+1548144185217	Rename type 'IPersonRepository'
+1548145383805	Delete elements
+1548145852453	Delete element
+1548146440340	Delete element
+1548146443240	Delete element
+1548147035878	Delete element
+1548147132501	Rename resource 'V09__create_table_and_insert_operation.sql'
+1548147141202	Delete element
+1548147912923	Delete element
+1548148177078	Delete element
+1548229441371	Rename local variable 'created'
+1548235881460	Copy compilation unit
+1548235901582	Rename type 'IObjectState'
+1548237114751	Copy file
+1548239583523	Rename field 'DOLLAR_SIMBLO'
+1548240937115	Encapsulate field 'operationRepositoryQuery'
+1548241253238	Encapsulate field 'operationRepositoryQuery'
+1548241853560	Delete element
+1548242128825	Delete element
+1548242206987	Delete element
+1548242338596	Delete element
+1548242454755	Delete element
+1548246640744	Rename type 'IOperationRepository'
+1548246727410	Rename type 'IOperationRepositoryQuery'
+1548423857391	Rename type 'APISecurityConfig'
+1548445439095	Rename field 'name'
